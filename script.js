@@ -73,9 +73,8 @@ function changeComplex(index) {
 }
 
 // 替換背景的函數
-function changeBackground(index) {
-    document.getElementById("background").src = backgroundOptions[index];
-}
+//function changeBackground(index) {
+    //document.getElementById("background").src = backgroundOptions[index];}
 
 
 // 顯示不同元件選項的函數
