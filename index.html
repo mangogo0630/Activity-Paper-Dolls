@@ -16,7 +16,8 @@
             <img id="size" class="layer layer-w" src="./images/紙娃娃_全身.png" alt="Size" style="z-index: 2;">
             <img id="hair" class="layer layer-w" src="./images/紙娃娃_長髮.png" alt="Hair" style="z-index: 3;">
             <img id="expression" class="layer layer-w" src="./images/紙娃娃_表情-撲克臉.png" alt="Expression" style="z-index: 4;">
-            <img id="simple" class="layer layer-w" src="./images/紙娃娃_配件-簡易配件-無.png" alt="simple" style="z-index: 5;">
+            <img id="simple" class="layer layer-w" src="./images/紙娃娃_配件-簡易配件-無.png" alt="simple" style="z-index: 6;">
+            <img id="complex" class="layer layer-w" src="./images/紙娃娃_配件-簡易配件-無.png" alt="complex" style="z-index: 5;">
         </div>
     </div>
         <!-- 按鈕區域 -->
@@ -26,6 +27,8 @@
             <button onclick="showOptions('hair')">髮型</button>
             <button onclick="showOptions('expression')">表情</button>
             <button onclick="showOptions('simple')">簡易配件</button>
+            <button onclick="showOptions('complex')">複雜配件</button>
+            <button onclick="showOptions('background')">背景圖</button>
             
             <!-- 預覽區域：尺寸 -->
             <div id="size-options" class="options" style="display:none;">
@@ -50,15 +53,37 @@
                 <img src="./images/紙娃娃_表情-微笑.png" onclick="changeExpression(1)" class="preview" alt="微笑">
                 <img src="./images/紙娃娃_表情-自訂.png" onclick="changeExpression(2)" class="preview" alt="自訂">
             </div>
-            
+
              <!-- 預覽區域：簡易配件 -->
              <div id="simple-options" class="options" style="display:none;">
                   <h3>簡易配件預覽</h3>
-                  <img id="simpleA"src="./images/紙娃娃_配件-簡易配件-愛心.png" onclick="changeSimple(0)" class="preview" alt="愛心">
-                  <img id="simpleB" src="./images/紙娃娃_配件-簡易配件-星星.png" onclick="changeSimple(1)" class="preview" alt="星星">
-                  <img src="./images/紙娃娃_配件-簡易配件-無.png" onclick="changeSimple(2)" class="preview" alt="無">
-             </div>
-         </div>
+                  <img src="./images/紙娃娃_配件-簡易配件-愛心.png" onclick="changeSimple(0)" class="preview" alt="愛心">
+                  <img src="./images/紙娃娃_配件-簡易配件-星星.png" onclick="changeSimple(1)" class="preview" alt="星星">
+                  <img src="./images/紙娃娃_配件-複雜配件-無.png" onclick="changeSimple(2)" class="preview" alt="無">
+              </div>
+
+               <!-- 預覽區域：複雜配件 -->
+         <div id="complex-options" class="options" style="display:none;">
+            <h3>複雜配件預覽</h3>
+            <img src="./images/紙娃娃_配件-複雜配件-拿酒.png" onclick="changeComplex(0)" class="preview" alt="拿酒">
+            <img src="./images/紙娃娃_配件-複雜配件-對話框+酒.png" onclick="changeComplex(1)" class="preview" alt="想喝酒">
+            <img src="./images/紙娃娃_配件-複雜配件-無.png" onclick="changeComplex(2)" class="preview" alt="無">
+       </div>
+   </div>
+
+              <!-- 預覽區域：背景 -->
+            <div id="background-options" class="options" style="display:none;">
+                <h3>背景預覽</h3>
+                <video id="background" class="preview" autoplay loop muted>
+                <source src="./images/bg_dot.mp4" type="video/mp4" onclick="changeBackground(0)" alt="動態背景">
+                </video>
+            <img src="./images/紙娃娃_簡易背景.png" onclick="changeBackground(1)" class="preview" alt="簡易背景">
+            <img src="./images/紙娃娃_複雜背景.png" onclick="changeBackground(2)" class="preview" alt="複雜背景">
+       </div>
+   </div>
+
+
+        
 
 
         <!-- 新的拍照按鈕 -->

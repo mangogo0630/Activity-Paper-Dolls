@@ -10,10 +10,12 @@ const playPauseBtn = document.getElementById('playPauseBtn');
 const downloadBtn = document.getElementById('downloadBtn');
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
+const backgroundOptions = ["./images/bg_dot.mp4", "./images/紙娃娃_簡易背景.png", "./images/紙娃娃_複雜背景.png"];
 const sizeOptions = ["./images/紙娃娃_大頭.png", "./images/紙娃娃_半身.png", "./images/紙娃娃_全身.png"];
 const hairOptions = ["./images/紙娃娃_長髮.png", "./images/紙娃娃_短髮.png"];
 const expressionOptions = ["./images/紙娃娃_表情-撲克臉.png", "./images/紙娃娃_表情-微笑.png", "./images/紙娃娃_表情-自訂.png"];
 const simpleOptions = ["./images/紙娃娃_配件-簡易配件-愛心.png", "./images/紙娃娃_配件-簡易配件-星星.png", "./images/紙娃娃_配件-簡易配件-無.png"];
+const complexOptions = ["./images/紙娃娃_配件-複雜配件-拿酒.png", "./images/紙娃娃_配件-複雜配件-對話框+酒.png", "./images/紙娃娃_配件-複雜配件-無.png"];
 
 // 替換尺寸的函數
 function changeSize(index) {
@@ -21,6 +23,8 @@ function changeSize(index) {
     const hair = document.getElementById("hair");
     const expression = document.getElementById("expression");
     const simple = document.getElementById("simple");
+    const complex = document.getElementById("complex");
+    const background = document.getElementById("background");
 
     size.src = sizeOptions[index];
 
@@ -30,16 +34,22 @@ function changeSize(index) {
         hair.style.transform = "scale(1.5) translateY(30px) translatex(-3px)";
         expression.style.transform = "scale(1.5) translateY(30px) translatex(-3px)";
         simple.style.transform =  "scale(1.5) translateY(20px) translatex(-4px)";
+        complex.style.transform =  "scale(1.3) translateY(20px) translatex(-4px)";
+        background.style.transform =  "scale(1)";
     } else if (index === 1) { // 半身
         size.style.transform = "scale(1.3) translateY(15px)";
         hair.style.transform = "scale(1.3) translateY(15px)";
         expression.style.transform = "scale(1.3) translateY(15px)";
         simple.style.transform = "scale(1.3) translateY(15px)";
+        complex.style.transform = "scale(1.3) translateY(15px)";
+        background.style.transform =  "scale(1)";
     } else { // 全身
         size.style.transform = "scale(1) translateY(0px)";
         hair.style.transform = "scale(1) translateY(0px)";
         expression.style.transform = "scale(1) translateY(0px)";
         simple.style.transform = "scale(1) translateY(0px)";
+        complex.style.transform = "scale(1) translateY(0px)";
+        background.style.transform =  "scale(1)";
     }
 }
 // 替換頭髮的函數
@@ -57,6 +67,16 @@ function changeSimple(index) {
     document.getElementById("simple").src = simpleOptions[index];
 }
 
+// 替換複雜配件的函數
+function changeComplex(index) {
+    document.getElementById("complex").src = complexOptions[index];
+}
+
+// 替換背景的函數
+function changeBackground(index) {
+    document.getElementById("background").src = backgroundOptions[index];
+}
+
 
 // 顯示不同元件選項的函數
 function showOptions(type) {
@@ -64,6 +84,8 @@ function showOptions(type) {
     document.getElementById('hair-options').style.display = type === 'hair' ? 'block' : 'none';
     document.getElementById('expression-options').style.display = type === 'expression' ? 'block' : 'none';
     document.getElementById('simple-options').style.display = type === 'simple' ? 'block' : 'none';
+    document.getElementById('complex-options').style.display = type === 'complex' ? 'block' : 'none';
+    document.getElementById('background-options').style.display = type === 'background' ? 'block' : 'none';
 }
 
 
@@ -81,10 +103,12 @@ cameraBtn.addEventListener('click', function() {
     const hair = document.getElementById('hair');
     const expression = document.getElementById('expression');
     const simple = document.getElementById('simple');
+    const complex = document.getElementById('complex');
     ctx.drawImage(size, 0, 0, canvas.width, canvas.height);
     ctx.drawImage(hair, 0, 0, canvas.width, canvas.height);
     ctx.drawImage(expression, 0, 0, canvas.width, canvas.height);
     ctx.drawImage(simple, 0, 0, canvas.width, canvas.height);
+    ctx.drawImage(complex, 0, 0, canvas.width, canvas.height);
 
 
     // 將 Canvas 轉換為圖片並顯示在預覽區域
