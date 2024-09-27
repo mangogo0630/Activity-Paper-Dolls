@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>紙娃娃替換系統</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="container-preview">
+        <div class="doll">
+            <video id="background" class="layer " autoplay loop muted>
+                <source src="./images/bg_dot.mp4" type="video/mp4">
+            </video>
+            <img id="size" class="layer layer-w" src="./images/紙娃娃_全身.png" alt="Size" style="z-index: 2;">
+            <img id="hair" class="layer layer-w" src="./images/紙娃娃_長髮.png" alt="Hair" style="z-index: 3;">
+            <img id="expression" class="layer layer-w" src="./images/紙娃娃_表情-撲克臉.png" alt="Expression" style="z-index: 4;">
+            <img id="simple" class="layer layer-w" src="./images/紙娃娃_配件-簡易配件-無.png" alt="simple" style="z-index: 5;">
+        </div>
+    </div>
+        <!-- 按鈕區域 -->
+        <div class="buttons">
+            <h3>選擇元件類型</h3>
+            <button onclick="showOptions('size')">尺寸</button>
+            <button onclick="showOptions('hair')">髮型</button>
+            <button onclick="showOptions('expression')">表情</button>
+            <button onclick="showOptions('simple')">簡易配件</button>
+            
+            <!-- 預覽區域：尺寸 -->
+            <div id="size-options" class="options" style="display:none;">
+                <h3>尺寸預覽</h3>
+                <img src="./images/紙娃娃_大頭.png" onclick="changeSize(0)" class="preview" alt="大頭">
+                <img src="./images/紙娃娃_半身.png" onclick="changeSize(1)" class="preview" alt="半身">
+                <img src="./images/紙娃娃_全身.png" onclick="changeSize(2)" class="preview" alt="全身">
+            </div>
+
+            <!-- 預覽區域：髮型 -->
+            <div id="hair-options" class="options">
+                <h3>髮型預覽</h3>
+                <img src="./images/紙娃娃_長髮.png" onclick="changeHair(0)" class="preview" alt="長髮">
+                <img src="./images/紙娃娃_短髮.png" onclick="changeHair(1)" class="preview" alt="短髮">
+            </div>
+
+
+            <!-- 預覽區域：表情 -->
+            <div id="expression-options" class="options" style="display:none;">
+                <h3>表情預覽</h3>
+                <img src="./images/紙娃娃_表情-撲克臉.png" onclick="changeExpression(0)" class="preview" alt="撲克臉">
+                <img src="./images/紙娃娃_表情-微笑.png" onclick="changeExpression(1)" class="preview" alt="微笑">
+                <img src="./images/紙娃娃_表情-自訂.png" onclick="changeExpression(2)" class="preview" alt="自訂">
+            </div>
+        </div>
+             <!-- 預覽區域：簡易配件 -->
+             <div id="simple-options" class="options" style="display:none;">
+                  <h3>簡易配件預覽</h3>
+                  <img id="simpleA"src="./images/紙娃娃_配件-簡易配件-愛心.png" onclick="changeSimple(0)" class="preview" alt="愛心">
+                  <img id="simpleB" src="./images/紙娃娃_配件-簡易配件-星星.png" onclick="changeSimple(1)" class="preview" alt="星星">
+                  <img src="./images/紙娃娃_配件-簡易配件-無.png" onclick="changeSimple(2)" class="preview" alt="無">
+             </div>
+         </div>
+
+
+        <!-- 新的拍照按鈕 -->
+        <div class="buttons">
+            <button id="cameraBtn">拍照</button> 
+        </div>
+
+         <!-- 彈出式預覽視窗 -->
+        <div id="previewModal" class="modal" style="z-index: 11 ; display:none;">
+            <div class="modal-content">
+                <span id="closeModal" class="close">&times;</span>
+                <h3>照片預覽</h3>
+                <img id="previewImage" alt="預覽圖" style="max-width: 100%; border: 1px solid #000;">
+                <div class="modal-buttons">
+                    <button id="downloadBtn">下載圖片</button>
+                    <button id="discardBtn">放棄照片</button> <!-- 新增放棄照片按鈕 -->
+                </div>
+            </div>
+        </div>
+
+        <canvas id="canvas" style="display:none;"></canvas>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
