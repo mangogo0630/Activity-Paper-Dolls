@@ -10,9 +10,9 @@
     <div class="container">
         <div class="container-preview">
         <div class="doll">
-            <video id="background" class="layer " autoplay loop muted>
-                <source src="./images/bg_dot.mp4" type="video/mp4">
-            </video>
+            <video id="background" class="preview preview-background" autoplay loop muted>
+                <source src="./images/bg_dot.mp4" type="video/mp4" onclick="changeBackground(0)" alt="動態背景">
+             </video>
             <img id="size" class="layer layer-w" src="./images/紙娃娃_全身.png" alt="Size" style="z-index: 2;">
             <img id="hair" class="layer layer-w" src="./images/紙娃娃_長髮.png" alt="Hair" style="z-index: 3;">
             <img id="expression" class="layer layer-w" src="./images/紙娃娃_表情-撲克臉.png" alt="Expression" style="z-index: 4;">
@@ -73,9 +73,9 @@
               <!-- 預覽區域：背景 -->
             <div id="background-options" class="options" style="display:none;">
                 <h3>背景預覽</h3>
-                <video id="background" class="preview" autoplay loop muted>
-                <source src="./images/bg_dot.mp4" type="video/mp4" onclick="changeBackground(0)" alt="動態背景">
-                </video>
+             <video autoplay loop muted onclick="changeBackground(0)" alt="動態背景" class="preview">
+                <source src="./images/bg_dot.mp4" type="video/mp4">
+            </video>  
             <img src="./images/紙娃娃_簡易背景.png" onclick="changeBackground(1)" class="preview" alt="簡易背景">
             <img src="./images/紙娃娃_複雜背景.png" onclick="changeBackground(2)" class="preview" alt="複雜背景">
        </div>

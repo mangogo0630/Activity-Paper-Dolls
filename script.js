@@ -10,7 +10,37 @@ const playPauseBtn = document.getElementById('playPauseBtn');
 const downloadBtn = document.getElementById('downloadBtn');
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
-const backgroundOptions = ["./images/bg_dot.mp4", "./images/紙娃娃_簡易背景.png", "./images/紙娃娃_複雜背景.png"];
+function changeBackground(index) {
+    const currentBackground = document.getElementById("background");
+
+    // 如果選擇的是影片
+    if (index === 0) {
+        // 如果當前是圖片，則替換為影片
+        if (currentBackground.tagName.toLowerCase() === 'img') {
+            currentBackground.outerHTML = `<video id="background" class="layer" autoplay loop muted>
+                                               <source src="${backgroundOptions[index]}" type="video/mp4">
+                                            </video>`;
+        } else {
+            // 如果當前已經是影片，僅更換 source 並重新加載影片
+            currentBackground.querySelector('source').src = backgroundOptions[index];
+            currentBackground.load(); // 重新加載影片
+        }
+    } else {
+        // 如果選擇的是圖片，則替換為圖片
+        if (currentBackground.tagName.toLowerCase() === 'video') {
+            currentBackground.outerHTML = `<img id="background" class="layer" src="${backgroundOptions[index]}" alt="背景圖">`;
+        } else {
+            // 僅更換圖片的 src
+            currentBackground.src = backgroundOptions[index];
+        }
+    }
+}
+
+const backgroundOptions = [
+    "./images/bg_dot.mp4",      // 動態背景（影片）
+    "./images/紙娃娃_簡易背景.png", // 靜態背景（圖片）
+    "./images/紙娃娃_複雜背景.png" // 靜態背景（圖片）
+];
 const sizeOptions = ["./images/紙娃娃_大頭.png", "./images/紙娃娃_半身.png", "./images/紙娃娃_全身.png"];
 const hairOptions = ["./images/紙娃娃_長髮.png", "./images/紙娃娃_短髮.png"];
 const expressionOptions = ["./images/紙娃娃_表情-撲克臉.png", "./images/紙娃娃_表情-微笑.png", "./images/紙娃娃_表情-自訂.png"];
