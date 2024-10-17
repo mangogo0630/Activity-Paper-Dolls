@@ -15,24 +15,14 @@ function changeBackground(index) {
 
     // 如果選擇的是影片
     if (index === 0) {
-        // 如果當前是圖片，則替換為影片
-        if (currentBackground.tagName.toLowerCase() === 'img') {
-            currentBackground.outerHTML = `<video id="background" class="layer" autoplay loop muted>
-                                               <source src="${backgroundOptions[index]}" type="video/mp4">
-                                            </video>`;
-        } else {
-            // 如果當前已經是影片，僅更換 source 並重新加載影片
-            currentBackground.querySelector('source').src = backgroundOptions[index];
-            currentBackground.load(); // 重新加載影片
-        }
+        // 替換為影片
+        currentBackground.outerHTML = `<video id="background" class="layer" autoplay loop muted>
+                                           <source src="${backgroundOptions[index]}" type="video/mp4">
+                                        </video>`;
+        video = document.getElementById("background"); // 更新 video 元素的引用
     } else {
-        // 如果選擇的是圖片，則替換為圖片
-        if (currentBackground.tagName.toLowerCase() === 'video') {
-            currentBackground.outerHTML = `<img id="background" class="layer" src="${backgroundOptions[index]}" alt="背景圖">`;
-        } else {
-            // 僅更換圖片的 src
-            currentBackground.src = backgroundOptions[index];
-        }
+        // 如果選擇的是圖片，替換為圖片
+        currentBackground.outerHTML = `<img id="background" class="layer" src="${backgroundOptions[index]}" alt="背景圖">`;
     }
 }
 
@@ -55,33 +45,26 @@ function changeSize(index) {
     const simple = document.getElementById("simple");
     const complex = document.getElementById("complex");
     const background = document.getElementById("background");
-
     size.src = sizeOptions[index];
+}
 
-    // 根據選擇的尺寸來調整其他元素的縮放和位置
-    if (index === 0) { // 大頭
-        size.style.transform = "scale(1.5) translateY(30px) translatex(-3px)";
-        hair.style.transform = "scale(1.5) translateY(30px) translatex(-3px)";
-        expression.style.transform = "scale(1.5) translateY(30px) translatex(-3px)";
-        simple.style.transform =  "scale(1.5) translateY(20px) translatex(-4px)";
-        complex.style.transform =  "scale(1.3) translateY(20px) translatex(-4px)";
-        background.style.transform =  "scale(1)";
-    } else if (index === 1) { // 半身
-        size.style.transform = "scale(1.3) translateY(15px)";
-        hair.style.transform = "scale(1.3) translateY(15px)";
-        expression.style.transform = "scale(1.3) translateY(15px)";
-        simple.style.transform = "scale(1.3) translateY(15px)";
-        complex.style.transform = "scale(1.3) translateY(15px)";
-        background.style.transform =  "scale(1)";
-    } else { // 全身
-        size.style.transform = "scale(1) translateY(0px)";
-        hair.style.transform = "scale(1) translateY(0px)";
-        expression.style.transform = "scale(1) translateY(0px)";
-        simple.style.transform = "scale(1) translateY(0px)";
-        complex.style.transform = "scale(1) translateY(0px)";
-        background.style.transform =  "scale(1)";
+function changeBackground(index) {
+    const currentBackground = document.getElementById("background");
+
+    // 如果選擇的是影片
+    if (index === 0) {
+        // 替換為影片
+        currentBackground.outerHTML = `<video id="background" class="layer" autoplay loop muted>
+                                           <source src="${backgroundOptions[index]}" type="video/mp4">
+                                        </video>`;
+        video = document.getElementById("background"); // 更新 video 元素的引用
+    } else {
+        // 如果選擇的是圖片，替換為圖片
+        currentBackground.outerHTML = `<img id="background" class="layer" src="${backgroundOptions[index]}" alt="背景圖">`;
     }
 }
+
+
 // 替換頭髮的函數
 function changeHair(index) {
     document.getElementById("hair").src = hairOptions[index];
@@ -120,26 +103,40 @@ function showOptions(type) {
 
 // 拍照邏輯
 cameraBtn.addEventListener('click', function() {
-    // 設定 Canvas 大小與影片一致
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
+    const backgroundElement = document.getElementById('background');
+    
+     // 如果當前背景是影片
+     if (backgroundElement.tagName.toLowerCase() === 'video') {
+        const videoElement = backgroundElement;
 
-    // 抓取影片當前幀並繪製
-    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        // 設定 Canvas 大小與影片一致
+        canvas.width = videoElement.videoWidth;
+        canvas.height = videoElement.videoHeight;
 
-    // 繪製衣服、髮型和眼睛
-    const size = document.getElementById('size');
-    const hair = document.getElementById('hair');
-    const expression = document.getElementById('expression');
-    const simple = document.getElementById('simple');
-    const complex = document.getElementById('complex');
-    ctx.drawImage(size, 0, 0, canvas.width, canvas.height);
-    ctx.drawImage(hair, 0, 0, canvas.width, canvas.height);
-    ctx.drawImage(expression, 0, 0, canvas.width, canvas.height);
-    ctx.drawImage(simple, 0, 0, canvas.width, canvas.height);
-    ctx.drawImage(complex, 0, 0, canvas.width, canvas.height);
+        // 抓取當前幀並繪製到 Canvas
+        ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+    } 
+    else {
+        // 如果當前背景是圖片
+        const imgElement = backgroundElement;
 
+         // 使用當前顯示的寬高繪製圖片到 Canvas，而不是使用原圖尺寸
+         const displayWidth = imgElement.offsetWidth;
+         const displayHeight = imgElement.offsetHeight;
 
+        // 設定 Canvas 大小與圖片的顯示大小一致
+        canvas.width = displayWidth;
+        canvas.height = displayHeight;
+        // 繪製圖片到 Canvas
+        ctx.drawImage(imgElement, 0, 0, canvas.width, canvas.height);
+    }
+
+    // 抓取其他圖層並繪製到 Canvas
+    applyTransform(document.getElementById('size'));
+    applyTransform(document.getElementById('hair'));
+    applyTransform(document.getElementById('expression'));
+    applyTransform(document.getElementById('simple'));
+    applyTransform(document.getElementById('complex'));
     // 將 Canvas 轉換為圖片並顯示在預覽區域
     const image = canvas.toDataURL('image/png');
     previewImage.src = image;
@@ -147,6 +144,25 @@ cameraBtn.addEventListener('click', function() {
     // 顯示彈出式視窗
     previewModal.style.display = 'block';
 });
+
+// 通用的應用變換函數
+function applyTransform(element) {
+    const transform = window.getComputedStyle(element).transform;
+    if (transform !== 'none') {
+        // 解析變換矩陣
+        const matrix = new DOMMatrix(transform);
+        const scaleX = matrix.a; // 縮放 X 軸
+        const scaleY = matrix.d; // 縮放 Y 軸
+        const translateX = matrix.e; // X 軸位移
+        const translateY = matrix.f; // Y 軸位移
+        
+        // 繪製應用變換後的圖像
+        ctx.drawImage(element, xPos, yPos, newWidth, newHeight);
+    } else {
+        // 如果沒有變換，直接繪製
+        ctx.drawImage(element, element.offsetLeft, element.offsetTop, element.width, element.height);
+    }
+}
 
 // 下載邏輯
 downloadBtn.addEventListener('click', function() {
